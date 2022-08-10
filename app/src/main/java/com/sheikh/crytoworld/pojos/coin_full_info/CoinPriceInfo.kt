@@ -1,9 +1,12 @@
-package com.sheikh.crytoworld.pojos
+package com.sheikh.crytoworld.pojos.coin_full_info
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class ConvertingValueOfRawCoin(
+@Entity(tableName = "crypto_database")
+data class CoinPriceInfo (
 
     @SerializedName("TYPE")
     @Expose
@@ -13,6 +16,7 @@ data class ConvertingValueOfRawCoin(
     @Expose
     private val market: String? = null,
 
+    @PrimaryKey
     @SerializedName("FROMSYMBOL")
     @Expose
     private val fromSymbol: String? = null,
@@ -153,21 +157,6 @@ data class ConvertingValueOfRawCoin(
     @Expose
     private val conversionSymbol: String? = null,
 
-    @SerializedName("SUPPLY")
-    @Expose
-    private val supply: Int? = null,
-
-    @SerializedName("MKTCAP")
-    @Expose
-    private val mktCap: Double? = null,
-
-    @SerializedName("MKTCAPPENALTY")
-    @Expose
-    private val mktCapPenalty: Int? = null,
-
-    @SerializedName("CIRCULATINGSUPPLY")
-    @Expose
-    private val circulatingSupply: Int? = null,
 
     @SerializedName("CIRCULATINGSUPPLYMKTCAP")
     @Expose
