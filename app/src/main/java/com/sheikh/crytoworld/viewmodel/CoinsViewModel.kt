@@ -11,6 +11,7 @@ import com.sheikh.crytoworld.pojos.coin_full_info.CoinPriceInfoRawData
 import com.sheikh.crytoworld.retorfit.ApiFactory
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class CoinsViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -19,6 +20,7 @@ class CoinsViewModel(application: Application) : AndroidViewModel(application) {
 
     val coinPriceInfo: LiveData<List<CoinPriceInfo>> = database.getDao().getListOfCoinPriceData()
 
+    // Get detail info about specific coin (get coin name from argument)
     fun getCoinDetailData(fSym: String): LiveData<CoinPriceInfo> {
         return database.getDao().getSpecificCoinDetailInfo(fSym)
     }
@@ -27,13 +29,18 @@ class CoinsViewModel(application: Application) : AndroidViewModel(application) {
         loadData()
     }
 
+    // Load list of crypto currency
     private fun loadData() {
         val disposable = ApiFactory.apiService.getTopCoins()
             .map { it.topCoinsList?.map { it.coinInfo?.name }?.joinToString(",") }
             .flatMap { ApiFactory.apiService.getFullDataOfCoins(coinName = it) }
             .map { getListOfCoinPriceInfo(it) }
+            .delaySubscription(10, TimeUnit.SECONDS)        // In every n(10) timeOut(seconds)
+            .repeat()                                           // repeat action that was displayed in subscribe
+            .retry()                                            // if there will be error , retry
             .subscribeOn(Schedulers.io())
             .subscribe({
+                // Insert result to the Local(Room) database
                 database.getDao().addCoinPriceDataObject(it)
                 Log.d("process_result", " message1: $it")
             }, {
@@ -43,6 +50,8 @@ class CoinsViewModel(application: Application) : AndroidViewModel(application) {
 
         compositeDisposable.add(disposable)
     }
+
+    // Parsing JSONObject into Kotlin object
 
     private fun getListOfCoinPriceInfo(coinPriceInfoRawData: CoinPriceInfoRawData): List<CoinPriceInfo> {
         val result = ArrayList<CoinPriceInfo>()
@@ -62,6 +71,7 @@ class CoinsViewModel(application: Application) : AndroidViewModel(application) {
         return result
     }
 
+    // Dispose composite disposable
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.dispose()
