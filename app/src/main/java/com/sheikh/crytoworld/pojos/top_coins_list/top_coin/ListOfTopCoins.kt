@@ -1,4 +1,4 @@
-package com.sheikh.crytoworld.pojos.top_coins_list
+package com.sheikh.crytoworld.pojos.top_coins_list.top_coin
 
 import com.google.gson.annotations.Expose
 

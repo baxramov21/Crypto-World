@@ -35,21 +35,21 @@ class CoinsListAdapter(var coinsList: ArrayList<CoinInfo> = ArrayList()) :
         val coin: CoinInfo = coinsList[position]
         with(holder) {
 
-            // set image of coin
-            Glide.with(context)
-                .load(coin.imageUrl)
-                .placeholder(R.drawable.bitcoin)
-                .error(R.drawable.not_found)
-                .into(imageViewCoinImage);
-
-            // set name of coin
-            textViewCoinName.text = coin.fullName
-
-            // set price of coin
-            textViewCoinPrice.text = coin.id
-
-            // set coin price update time
-            textViewCoinPriceLastUpdateTime.text = "Toaday"
+//            // set image of coin
+//            Glide.with(context)
+//                .load(coin.imageUrl)
+//                .placeholder(R.drawable.bitcoin)
+//                .error(R.drawable.not_found)
+//                .into(imageViewCoinImage);
+//
+//            // set name of coin
+//            textViewCoinName.text = coin.fullName
+//
+//            // set price of coin
+//            textViewCoinPrice.text = coin.id
+//
+//            // set coin price update time
+//            textViewCoinPriceLastUpdateTime.text = "Toaday"
 
         }
     }

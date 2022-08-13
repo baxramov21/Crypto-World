@@ -1,7 +1,7 @@
 package com.sheikh.crytoworld.retorfit
 
-import com.sheikh.crytoworld.pojos.coin_full_info.ListOfCoinNames
-import com.sheikh.crytoworld.pojos.top_coins_list.ListOfTopCoins
+import com.sheikh.crytoworld.pojos.coin_full_info.CoinPriceInfoRawData
+import com.sheikh.crytoworld.pojos.top_coins_list.top_coin.ListOfTopCoins
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -24,7 +24,7 @@ interface ApiService {
         @Query(
             QUERY_PARAM_CONVERT_VALUE
         ) convertCurrencyName: String = QUERY_VALUE_CONVERT_VALUE,
-    ): Single<ListOfCoinNames>
+    ): Single<CoinPriceInfoRawData>
 
     companion object {
         private const val QUERY_PARAM_API_KEY = "api_key"

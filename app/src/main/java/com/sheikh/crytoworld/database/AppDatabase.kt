@@ -11,7 +11,7 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
 
         private var database: AppDatabase? = null
-        const val databaseName = "main.db"
+        private const val databaseName = "main.db"
 
         fun getInstance(context: Context): AppDatabase {
             database?.let { return it }
@@ -22,5 +22,5 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 
-    abstract fun getDao(): CoinsDao
+    abstract fun getDao(): CoinDao
 }
