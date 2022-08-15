@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">Cryto World</string>
+    <string name="app_name">Crypto World</string>
+    <string name="currency_template">%s / %s</string>
+    <string name="time_template">Last update time: %s</string>
+    <string name="slash">/</string>
+    <string name="price">Цена:</string>
+    <string name="max_in_day">Максимум за день:</string>
+    <string name="min_for_day">Минимум за день:</string>
+    <string name="last_market">Последняя сделка:</string>
+    <string name="last_update">Обновлено:</string>
+    <string name="coin_image">Coin image</string>
 </resources>

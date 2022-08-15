@@ -9,7 +9,7 @@ import com.sheikh.crytoworld.pojos.coin_full_info.CoinPriceInfo
 
 @Dao
 interface CoinDao {
-    @Query("SELECT * FROM crypto_database ORDER BY lastUpdate")
+    @Query("SELECT * FROM crypto_database ORDER BY lastUpdate DESC")
     fun getListOfCoinPriceData(): LiveData<List<CoinPriceInfo>>
 
     @Query("SELECT * FROM crypto_database WHERE fromSymbol = :fSym")

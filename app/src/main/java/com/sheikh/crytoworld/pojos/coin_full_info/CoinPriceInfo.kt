@@ -4,6 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.sheikh.crytoworld.retorfit.ApiFactory.BASE_IMAGE_URL
+import com.sheikh.crytoworld.utils.convertTimeStampToTime
 
 @Entity(tableName = "crypto_database")
 data class CoinPriceInfo(
@@ -35,7 +37,7 @@ data class CoinPriceInfo(
 
     @SerializedName("LASTUPDATE")
     @Expose
-    val lastUpdate: Int,
+    val lastUpdate: Long,        // It was Int and i changed this to Long
 
     @SerializedName("MEDIAN")
     @Expose
@@ -181,4 +183,9 @@ data class CoinPriceInfo(
     @SerializedName("IMAGEURL")
     @Expose
     val imageUrl: String
-)
+) {
+    fun getLastUpdatedTime() = convertTimeStampToTime(lastUpdate)
+
+
+    fun getFullImageURL() = BASE_IMAGE_URL + imageUrl
+}
