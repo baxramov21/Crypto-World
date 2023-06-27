@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CrytoWorld">
         <activity
-            android:name=".screens.CoinDetailActivity"
+            android:name=".presentation.CoinDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".screens.CoinListActivity"
+            android:name=".presentation.CoinListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.CoinDetailActivity">
+    tools:context=".presentation.CoinDetailActivity">
 
     <ImageView
         android:id="@+id/imageViewCoinLogo"
@@ -12,7 +12,7 @@
         android:layout_height="80dp"
         android:layout_marginTop="24dp"
         android:contentDescription="@string/coin_image"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@mipmap/ic_launcher_foreground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
