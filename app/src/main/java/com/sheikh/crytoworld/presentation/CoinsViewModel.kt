@@ -6,8 +6,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.google.gson.Gson
 import com.sheikh.crytoworld.data.database.AppDatabase
-import com.sheikh.crytoworld.data.model.coin_full_info.CoinPriceInfo
-import com.sheikh.crytoworld.data.model.coin_full_info.CoinPriceInfoRawData
+import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinPriceInfo
+import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinPriceInfoRawData
 import com.sheikh.crytoworld.data.network.ApiFactory
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

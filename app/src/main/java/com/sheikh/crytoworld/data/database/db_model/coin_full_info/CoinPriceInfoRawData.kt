@@ -1,7 +1,6 @@
-package com.sheikh.crytoworld.data.model.coin_full_info
+package com.sheikh.crytoworld.data.database.db_model.coin_full_info
 
 import com.google.gson.JsonObject
-import org.json.JSONObject
 
 import com.google.gson.annotations.Expose
 

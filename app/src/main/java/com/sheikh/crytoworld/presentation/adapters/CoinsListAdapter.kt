@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sheikh.crytoworld.R
-import com.sheikh.crytoworld.data.model.coin_full_info.CoinPriceInfo
+import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinPriceInfo
 import kotlinx.android.synthetic.main.coin_item.view.*
 
 class CoinsListAdapter(private val context: Context) :

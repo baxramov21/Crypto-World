@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.sheikh.crytoworld.R
 import com.sheikh.crytoworld.presentation.adapters.CoinsListAdapter
-import com.sheikh.crytoworld.data.model.coin_full_info.CoinPriceInfo
+import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinPriceInfo
 import kotlinx.android.synthetic.main.activity_coin_list.*
 
 class CoinListActivity : AppCompatActivity() {

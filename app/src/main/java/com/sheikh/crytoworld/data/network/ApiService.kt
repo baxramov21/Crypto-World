@@ -1,7 +1,7 @@
 package com.sheikh.crytoworld.data.network
 
-import com.sheikh.crytoworld.data.model.coin_full_info.CoinPriceInfoRawData
-import com.sheikh.crytoworld.data.model.top_coins_list.top_coin.ListOfTopCoins
+import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinPriceInfoRawData
+import com.sheikh.crytoworld.data.database.db_model.top_coins_list.top_coin.ListOfTopCoins
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

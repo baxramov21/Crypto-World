@@ -1,4 +1,4 @@
-package com.sheikh.crytoworld.data.model.coin_full_info
+package com.sheikh.crytoworld.data.database.db_model.coin_full_info
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
