@@ -5,16 +5,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinPriceInfo
+import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinInfoDbModel
 
 @Dao
 interface CoinDao {
     @Query("SELECT * FROM crypto_database ORDER BY lastUpdate DESC")
-    fun getListOfCoinPriceData(): LiveData<List<CoinPriceInfo>>
+    fun getCoinsList(): LiveData<List<CoinInfoDbModel>>
 
     @Query("SELECT * FROM crypto_database WHERE fromSymbol = :fSym")
-    fun getSpecificCoinDetailInfo(fSym: String): LiveData<CoinPriceInfo>
+    fun getCoin(fSym: String): LiveData<CoinInfoDbModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addCoinPriceDataObject(coins: List<CoinPriceInfo>)
+    fun addCoin(coins: List<CoinInfoDbModel>)
 }

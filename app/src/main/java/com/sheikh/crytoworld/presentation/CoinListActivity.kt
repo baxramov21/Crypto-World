@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.sheikh.crytoworld.R
 import com.sheikh.crytoworld.presentation.adapters.CoinsListAdapter
-import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinPriceInfo
+import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinInfoDbModel
 import kotlinx.android.synthetic.main.activity_coin_list.*
 
 class CoinListActivity : AppCompatActivity() {
@@ -19,7 +19,7 @@ class CoinListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_coin_list)
         val adapter = CoinsListAdapter(this)
         adapter.coinClickListener = object : CoinsListAdapter.CoinClickListener {
-            override fun onCoinClick(coin: CoinPriceInfo) {
+            override fun onCoinClick(coin: CoinInfoDbModel) {
                 val intent = CoinDetailActivity.newIntent(this@CoinListActivity, coin.fromSymbol)
                 startActivity(intent)
             }

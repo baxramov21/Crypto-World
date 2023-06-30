@@ -1,6 +1,8 @@
-package com.sheikh.crytoworld.domain
+package com.sheikh.crytoworld.domain.use_case
 
-class GetLatestCoinInfoUseCase(
+import com.sheikh.crytoworld.domain.Repository
+
+class GetLatestCoinInfo(
     private val repository: Repository
 ) {
     operator fun invoke(fromSymbol: String) = repository.getLatestCoinInfo(fromSymbol)

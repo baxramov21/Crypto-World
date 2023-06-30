@@ -1,11 +1,15 @@
-package com.sheikh.crytoworld.domain
+package com.sheikh.crytoworld.domain.entity
+
+import androidx.room.PrimaryKey
 
 data class CoinInfoEntity(
     val type: String,
+    val market: String,
     val fromSymbol: String,
     val toSymbol: String,
     val price: Double,
     val lastUpdate: Long,
+    val lastTradeId: String,
     val highDay: Double,
     val lowDay: Double,
     val lastMarket: String,

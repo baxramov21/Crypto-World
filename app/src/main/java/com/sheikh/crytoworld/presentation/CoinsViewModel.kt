@@ -6,8 +6,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.google.gson.Gson
 import com.sheikh.crytoworld.data.database.AppDatabase
-import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinPriceInfo
-import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinPriceInfoRawData
+import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinInfoDbModel
+import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinInfoRawData
 import com.sheikh.crytoworld.data.network.ApiFactory
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -18,11 +18,11 @@ class CoinsViewModel(application: Application) : AndroidViewModel(application) {
     private val database = AppDatabase.getInstance(application)
     private val compositeDisposable = CompositeDisposable()
 
-    val coinPriceInfo: LiveData<List<CoinPriceInfo>> = database.getDao().getListOfCoinPriceData()
+    val coinPriceInfo: LiveData<List<CoinInfoDbModel>> = database.getDao().getCoinsList()
 
     // Get detail info about specific coin (get coin name from argument)
-    fun getCoinDetailData(fSym: String): LiveData<CoinPriceInfo> {
-        return database.getDao().getSpecificCoinDetailInfo(fSym)
+    fun getCoinDetailData(fSym: String): LiveData<CoinInfoDbModel> {
+        return database.getDao().getCoin(fSym)
     }
 
     init {
@@ -41,7 +41,7 @@ class CoinsViewModel(application: Application) : AndroidViewModel(application) {
             .subscribeOn(Schedulers.io())
             .subscribe({
                 // Insert result to the Local(Room) database
-                database.getDao().addCoinPriceDataObject(it)
+                database.getDao().addCoin(it)
                 Log.d("process_result", " message1: $it")
             }, {
                 Log.e("process_result", "Error message: ${it.message}")
@@ -53,17 +53,17 @@ class CoinsViewModel(application: Application) : AndroidViewModel(application) {
 
     // Parsing JSONObject into Kotlin object
 
-    private fun getListOfCoinPriceInfo(coinPriceInfoRawData: CoinPriceInfoRawData): List<CoinPriceInfo> {
-        val result = ArrayList<CoinPriceInfo>()
+    private fun getListOfCoinPriceInfo(coinPriceInfoRawData: CoinInfoRawData): List<CoinInfoDbModel> {
+        val result = ArrayList<CoinInfoDbModel>()
         val jsonObject = coinPriceInfoRawData.coinListRawData ?: return result
         val coinsKeySet = jsonObject.keySet()
         for (coinKey in coinsKeySet) {
             val currencyJson = jsonObject.getAsJsonObject(coinKey)
             val currencyKeySet = currencyJson.keySet()
             for (currencyKey in currencyKeySet) {
-                val coinPriceInfo: CoinPriceInfo = Gson().fromJson(
+                val coinPriceInfo: CoinInfoDbModel = Gson().fromJson(
                     currencyJson.getAsJsonObject(currencyKey),
-                    CoinPriceInfo::class.java
+                    CoinInfoDbModel::class.java
                 )
                 result.add(coinPriceInfo)
             }

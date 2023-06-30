@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sheikh.crytoworld.R
-import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinPriceInfo
+import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinInfoDbModel
 import kotlinx.android.synthetic.main.coin_item.view.*
 
 class CoinsListAdapter(private val context: Context) :
@@ -17,14 +17,14 @@ class CoinsListAdapter(private val context: Context) :
 
     var coinClickListener: CoinClickListener? = null
 
-    var coinsList: List<CoinPriceInfo> = listOf()
+    var coinsList: List<CoinInfoDbModel> = listOf()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
     interface CoinClickListener {
-        fun onCoinClick(coin: CoinPriceInfo)
+        fun onCoinClick(coin: CoinInfoDbModel)
     }
 
     override fun onCreateViewHolder(
@@ -35,7 +35,7 @@ class CoinsListAdapter(private val context: Context) :
     }
 
     override fun onBindViewHolder(holder: CoinListViewHolder, position: Int) {
-        val coin: CoinPriceInfo = coinsList[position]
+        val coin: CoinInfoDbModel = coinsList[position]
         with(holder) {
             with(coin) {
 
