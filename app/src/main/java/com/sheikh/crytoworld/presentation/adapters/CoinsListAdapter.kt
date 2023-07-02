@@ -9,7 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sheikh.crytoworld.R
-import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinInfoDbModel
+import com.sheikh.crytoworld.data.database.db_model.CoinInfoDbModel
+import com.sheikh.crytoworld.domain.entity.CoinInfoEntity
 import kotlinx.android.synthetic.main.coin_item.view.*
 
 class CoinsListAdapter(private val context: Context) :
@@ -17,14 +18,14 @@ class CoinsListAdapter(private val context: Context) :
 
     var coinClickListener: CoinClickListener? = null
 
-    var coinsList: List<CoinInfoDbModel> = listOf()
+    var coinsList: List<CoinInfoEntity> = listOf()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
     interface CoinClickListener {
-        fun onCoinClick(coin: CoinInfoDbModel)
+        fun onCoinClick(item: CoinInfoEntity)
     }
 
     override fun onCreateViewHolder(
@@ -35,30 +36,26 @@ class CoinsListAdapter(private val context: Context) :
     }
 
     override fun onBindViewHolder(holder: CoinListViewHolder, position: Int) {
-        val coin: CoinInfoDbModel = coinsList[position]
+        val coin: CoinInfoEntity = coinsList[position]
         with(holder) {
             with(coin) {
 
                 val timeTemplate = context.getString(R.string.time_template)
                 val coinNameTemplate = context.getString(R.string.currency_template)
 
-                // set name of coin
                 textViewCoinName.text = String.format(coinNameTemplate, fromSymbol, toSymbol)
-
-                // set price of coin
                 textViewCoinPrice.text = price.toString()
-
-                // set coin price update time
                 textViewCoinPriceLastUpdateTime.text =
-                    String.format(timeTemplate, getLastUpdatedTime())
+                    lastUpdate.toString()
+//                    String.format(timeTemplate, getLastUpdatedTime())
 
-                // set image of coin
+                val baseImageUrl = "https://cryptocompare.com/"
+
                 Glide.with(context)
-                    .load(getFullImageURL())
+                    .load(baseImageUrl + imageUrl)
                     .error(R.drawable.not_found)
                     .into(imageViewCoinImage)
 
-                // set listener to each coin element
                 itemView.setOnClickListener {
                     coinClickListener?.onCoinClick(this)
                 }

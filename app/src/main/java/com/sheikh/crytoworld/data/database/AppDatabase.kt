@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.sheikh.crytoworld.data.database.db_model.coin_full_info.CoinInfoDbModel
+import com.sheikh.crytoworld.data.database.db_model.CoinInfoDbModel
 
 @Database(entities = [CoinInfoDbModel::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {

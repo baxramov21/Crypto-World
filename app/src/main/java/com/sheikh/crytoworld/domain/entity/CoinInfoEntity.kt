@@ -1,7 +1,5 @@
 package com.sheikh.crytoworld.domain.entity
 
-import androidx.room.PrimaryKey
-
 data class CoinInfoEntity(
     val type: String,
     val market: String,

@@ -1,9 +1,9 @@
-package com.sheikh.crytoworld.data.database.db_model.coin_full_info
+package com.sheikh.crytoworld.data.database.db_model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.sheikh.crytoworld.data.network.ApiFactory.BASE_IMAGE_URL
-import com.sheikh.crytoworld.utils.convertTimeStampToTime
+import com.sheikh.crytoworld.data.utils.convertTimeStampToTime
 
 @Entity(tableName = "crypto_database")
 data class CoinInfoDbModel(
@@ -21,9 +21,4 @@ data class CoinInfoDbModel(
     val highHour: Double,
     val lowHour: Double,
     val imageUrl: String
-) {
-    fun getLastUpdatedTime() = convertTimeStampToTime(lastUpdate)
-
-
-    fun getFullImageURL() = BASE_IMAGE_URL + imageUrl
-}
+)
