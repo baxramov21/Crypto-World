@@ -1,16 +1,12 @@
-package com.sheikh.crytoworld.data.model.coin_full_info
+package com.sheikh.crytoworld.data.network.dto
 
 import com.google.gson.JsonObject
-import org.json.JSONObject
-
 import com.google.gson.annotations.Expose
-
 import com.google.gson.annotations.SerializedName
 
 
-data class CoinPriceInfoRawData (
-
+data class CoinPriceInfoRawDataDto(
     @SerializedName("RAW")
     @Expose
-    val  coinListRawData: JsonObject
+    var coinNameJsonObject: JsonObject? = null
 )

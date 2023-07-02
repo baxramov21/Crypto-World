@@ -1,62 +1,57 @@
-package com.sheikh.crytoworld.domain
+package com.sheikh.crytoworld.data.network.dto
 
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
+
 import com.google.gson.annotations.SerializedName
 
-data class CoinInfo(
 
+data class CoinFullDataDto(
     @SerializedName("TYPE")
     @Expose
-    val type: String,
-
-    @PrimaryKey
-    @SerializedName("FROMSYMBOL")
-    @Expose
-    val fromSymbol: String,
-
-    @SerializedName("TOSYMBOL")
-    @Expose
-    val toSymbol: String,
-
-    @SerializedName("PRICE")
-    @Expose
-    val price: Double,
-
-    @SerializedName("LASTUPDATE")
-    @Expose
-    val lastUpdate: Long,
+    val type: String? = null,
 
     @SerializedName("MARKET")
     @Expose
-    val market: String,
+    val market: String? = null,
 
-    @SerializedName("VOLUMEDAYTO")
+    @SerializedName("FROMSYMBOL")
     @Expose
-    val volumeDayTo: Double,
+    val fromSymbol: String? = null,
+
+    @SerializedName("TOSYMBOL")
+    @Expose
+    val toSymbol: String? = null,
+    @SerializedName("PRICE")
+    @Expose
+    val price: Double? = null,
+
+    @SerializedName("LASTUPDATE")
+    @Expose
+    val lastUpdate: Long? = null,
+    @SerializedName("LASTTRADEID")
+    @Expose
+    val lastTradeId: String? = null,
 
     @SerializedName("HIGHDAY")
     @Expose
-    val highDay: Double,
+    val highDay: Double? = null,
 
     @SerializedName("LOWDAY")
     @Expose
-    val lowDay: Double,
-
-
+    val lowDay: Double? = null,
     @SerializedName("LASTMARKET")
     @Expose
-    val lastMarket: String,
+    val lastMarket: String? = null,
 
     @SerializedName("HIGHHOUR")
     @Expose
-    val highHour: Double,
+    val highHour: Double? = null,
 
     @SerializedName("LOWHOUR")
     @Expose
-    val lowHour: Double,
+    val lowHour: Double? = null,
 
     @SerializedName("IMAGEURL")
     @Expose
-    val imageUrl: String
+    val imageUrl: String? = null
 )

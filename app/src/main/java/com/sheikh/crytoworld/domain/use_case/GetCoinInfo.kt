@@ -1,6 +1,6 @@
-package com.sheikh.crytoworld.domain
+package com.sheikh.crytoworld.domain.use_case
 
-import androidx.lifecycle.LiveData
+import com.sheikh.crytoworld.domain.repository.Repository
 
 class GetCoinInfo(
     private val repository: Repository
