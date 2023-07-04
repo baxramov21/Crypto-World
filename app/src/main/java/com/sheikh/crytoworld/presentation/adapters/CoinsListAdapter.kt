@@ -49,7 +49,7 @@ class CoinsListAdapter(private val context: Context) :
                     lastUpdate.toString()
 //                    String.format(timeTemplate, getLastUpdatedTime())
 
-                val baseImageUrl = "https://cryptocompare.com/"
+                val baseImageUrl = "https://cryptocompare.com"
 
                 Glide.with(context)
                     .load(baseImageUrl + imageUrl)

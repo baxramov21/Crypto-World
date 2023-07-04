@@ -3,8 +3,9 @@ package com.sheikh.crytoworld.data.network.dto
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class CoinNameContainer(
-    @SerializedName("CoinInfo")
+
+data class TopCoinNamesDto(
+    @SerializedName("Data")
     @Expose
-    val coinName: CoinNameDto? = null
+    val topCoinNames: List<CoinNameContainerDto>? = null
 )

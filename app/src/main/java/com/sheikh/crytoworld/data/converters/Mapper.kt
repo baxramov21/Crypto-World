@@ -1,7 +1,10 @@
 package com.sheikh.crytoworld.data.converters
 
+import com.google.gson.Gson
 import com.sheikh.crytoworld.data.database.db_model.CoinInfoDbModel
-import com.sheikh.crytoworld.data.network.dto.CoinFullDataDto
+import com.sheikh.crytoworld.data.network.dto.CoinInfoDto
+import com.sheikh.crytoworld.data.network.dto.CoinInfoJsonContainer
+import com.sheikh.crytoworld.data.network.dto.TopCoinNamesDto
 import com.sheikh.crytoworld.domain.entity.CoinInfoEntity
 
 class Mapper {
@@ -48,8 +51,8 @@ class Mapper {
     fun dbModelListToEntityList(databaseModels: List<CoinInfoDbModel>): List<CoinInfoEntity> =
         databaseModels.map { dbModelToEntity(it) }
 
-    private fun dbModelToDto(dbModel: CoinInfoDbModel): CoinFullDataDto {
-        return CoinFullDataDto(
+    private fun dbModelToDto(dbModel: CoinInfoDbModel): CoinInfoDto {
+        return CoinInfoDto(
             market = dbModel.market,
             type = dbModel.type,
             fromSymbol = dbModel.fromSymbol,
@@ -66,7 +69,7 @@ class Mapper {
         )
     }
 
-    private fun dtoToDbModel(dto: CoinFullDataDto): CoinInfoDbModel {
+    private fun dtoToDbModel(dto: CoinInfoDto): CoinInfoDbModel {
         return CoinInfoDbModel(
             market = dto.market!!,
             type = dto.type!!,
@@ -84,9 +87,33 @@ class Mapper {
         )
     }
 
-    fun dtoListToDbModelList(entities: List<CoinFullDataDto>): List<CoinInfoDbModel> =
-        entities.map { dtoToDbModel(it) }
+    fun mapJsonContainerToListCoinInfo(jsonContainer: CoinInfoJsonContainer): List<CoinInfoDto> {
+        val result = mutableListOf<CoinInfoDto>()
+        val jsonObject = jsonContainer.coinNameJsonObject ?: return result
+        val coinKeySet = jsonObject.keySet()
+        for (coinKey in coinKeySet) {
+            val currencyJson = jsonObject.getAsJsonObject(coinKey)
+            val currencyKeySet = currencyJson.keySet()
+            for (currencyKey in currencyKeySet) {
+                val priceInfo = Gson().fromJson(
+                    currencyJson.getAsJsonObject(currencyKey),
+                    CoinInfoDto::class.java
+                )
+                result.add(priceInfo)
+            }
+        }
+        return result
+    }
 
-    fun dbModelListToDtoList(databaseModels: List<CoinInfoDbModel>): List<CoinFullDataDto> =
+    fun dtoListToDbModelList(topCoinsList: List<CoinInfoDto>): List<CoinInfoDbModel> =
+        topCoinsList.map { dtoToDbModel(it) }
+
+    fun dbModelListToDtoList(databaseModels: List<CoinInfoDbModel>): List<CoinInfoDto> =
         databaseModels.map { dbModelToDto(it) }
+
+    fun mapNamesListToString(topCoinNames: TopCoinNamesDto): String {
+        return topCoinNames.topCoinNames?.map {
+            it.coinName?.name
+        }?.joinToString ( "," ) ?: ""
+    }
 }
