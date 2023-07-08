@@ -46,14 +46,12 @@ class CoinsListAdapter(private val context: Context) :
                 textViewCoinName.text = String.format(coinNameTemplate, fromSymbol, toSymbol)
                 textViewCoinPrice.text = price.toString()
                 textViewCoinPriceLastUpdateTime.text =
-                    lastUpdate.toString()
-//                    String.format(timeTemplate, getLastUpdatedTime())
-
-                val baseImageUrl = "https://cryptocompare.com/"
+                    String.format(timeTemplate, lastUpdate)
 
                 Glide.with(context)
-                    .load(baseImageUrl + imageUrl)
-                    .error(R.drawable.not_found)
+                    .load(imageUrl)
+                    .error(R.drawable.cryptos)
+                    .placeholder(R.drawable.cryptos)
                     .into(imageViewCoinImage)
 
                 itemView.setOnClickListener {

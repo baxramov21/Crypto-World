@@ -3,7 +3,9 @@ package com.sheikh.crytoworld.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.sheikh.crytoworld.R
 import com.sheikh.crytoworld.presentation.adapters.CoinsListAdapter
 import com.sheikh.crytoworld.domain.entity.CoinInfoEntity
@@ -38,6 +40,9 @@ class CoinListActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
+        val recyclerView: RecyclerView = recyclerViewCoinList
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         adapter.coinClickListener = object : CoinsListAdapter.CoinClickListener {
             override fun onCoinClick(item: CoinInfoEntity) {
                 val intent =
@@ -45,7 +50,5 @@ class CoinListActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-        val recyclerView: RecyclerView = recyclerViewCoinList
-        recyclerView.adapter = adapter
     }
 }

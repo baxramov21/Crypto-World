@@ -24,8 +24,8 @@ class MainViewModel(application: Application) : ViewModel() {
 
     val topCoins: LiveData<List<CoinInfoEntity>> = getCoinsList()
 
-    private fun getCoin(coinName: String) {
-        getCoinInfo(coinName)
+    suspend fun getCoin(coinName: String): CoinInfoEntity {
+        return getCoinInfo.getCoinInfo(coinName)
     }
 
     init {

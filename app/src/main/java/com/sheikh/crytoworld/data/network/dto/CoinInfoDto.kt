@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class CoinFullDataDto(
+data class CoinInfoDto(
     @SerializedName("TYPE")
     @Expose
     val type: String? = null,
