@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.sheikh.crytoworld.data.database.db_model.CoinInfoDbModel
 
-@Database(entities = [CoinInfoDbModel::class], version = 1, exportSchema = false)
+@Database(entities = [CoinInfoDbModel::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
 
@@ -15,8 +15,10 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): AppDatabase {
             database?.let { return it }
-            val instance =
-                Room.databaseBuilder(context, AppDatabase::class.java, databaseName).build()
+            val instance = Room
+                .databaseBuilder(context, AppDatabase::class.java, databaseName)
+                .fallbackToDestructiveMigration()
+                .build()
             database = instance
             return instance
         }

@@ -13,7 +13,7 @@ interface CoinDao {
     fun getCoinsList(): LiveData<List<CoinInfoDbModel>>
 
     @Query("SELECT * FROM crypto_database WHERE fromSymbol = :coinName")
-    fun getCoin(coinName: String): LiveData<CoinInfoDbModel>
+    fun getCoin(coinName: String): CoinInfoDbModel
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addCoinsList(coins: List<CoinInfoDbModel>)

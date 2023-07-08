@@ -5,5 +5,5 @@ import com.sheikh.crytoworld.domain.repository.Repository
 class GetCoinInfo(
     private val repository: Repository
 ) {
-    operator fun invoke(fromSymbol: String) = repository.getCoinInfo(fromSymbol)
+    suspend fun getCoinInfo(fromSymbol: String) = repository.getCoinInfo(fromSymbol)
 }

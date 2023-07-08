@@ -8,6 +8,7 @@ import com.google.gson.Gson
 import com.sheikh.crytoworld.data.converters.Mapper
 import com.sheikh.crytoworld.data.database.AppDatabase
 import com.sheikh.crytoworld.data.network.ApiFactory
+import com.sheikh.crytoworld.data.network.ApiFactory.api
 import com.sheikh.crytoworld.data.network.dto.CoinInfoDto
 import com.sheikh.crytoworld.data.network.dto.CoinInfoJsonContainer
 import com.sheikh.crytoworld.domain.entity.CoinInfoEntity
@@ -31,13 +32,8 @@ class RepositoryImpl(private val context: Context) : Repository {
         }
     }
 
-    override fun getCoinInfo(coinName: String): LiveData<CoinInfoEntity> {
-        return MediatorLiveData<CoinInfoEntity>().apply {
-            addSource(db.getCoin(coinName)) {
-                value = mapper.dbModelToEntity(it)
-            }
-        }
-    }
+    override suspend fun getCoinInfo(coinName: String): CoinInfoEntity = mapper.dbModelToEntity(db.getCoin(coinName))
+
 
     override suspend fun loadData(apiKey: String, topCoinsLimit: Int, convertTo: String) {
         while (true) {

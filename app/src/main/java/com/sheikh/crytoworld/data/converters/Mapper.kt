@@ -6,68 +6,33 @@ import com.sheikh.crytoworld.data.network.dto.CoinInfoDto
 import com.sheikh.crytoworld.data.network.dto.CoinInfoJsonContainer
 import com.sheikh.crytoworld.data.network.dto.TopCoinNamesDto
 import com.sheikh.crytoworld.domain.entity.CoinInfoEntity
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Mapper {
 
     fun dbModelToEntity(dbModel: CoinInfoDbModel): CoinInfoEntity {
+        val baseImageUrl = "https://cryptocompare.com"
         return CoinInfoEntity(
             market = dbModel.market,
             type = dbModel.type,
             fromSymbol = dbModel.fromSymbol,
             toSymbol = dbModel.toSymbol,
             price = dbModel.price,
-            lastUpdate = dbModel.lastUpdate,
+            lastUpdate = convertTimeStampToTime(dbModel.lastUpdate),
             lastTradeId = dbModel.lastTradeId,
             highDay = dbModel.highDay,
             lowDay = dbModel.lowDay,
             lastMarket = dbModel.lastMarket,
             highHour = dbModel.highHour,
             lowHour = dbModel.lowHour,
-            imageUrl = dbModel.imageUrl
+            imageUrl = baseImageUrl + dbModel.imageUrl
         )
     }
-
-    private fun entityToDbModel(entity: CoinInfoEntity): CoinInfoDbModel {
-        return CoinInfoDbModel(
-            market = entity.market,
-            type = entity.type,
-            fromSymbol = entity.fromSymbol,
-            toSymbol = entity.toSymbol,
-            price = entity.price,
-            lastUpdate = entity.lastUpdate,
-            lastTradeId = entity.lastTradeId,
-            highDay = entity.highDay,
-            lowDay = entity.lowDay,
-            lastMarket = entity.lastMarket,
-            highHour = entity.highHour,
-            lowHour = entity.lowHour,
-            imageUrl = entity.imageUrl
-        )
-    }
-
-    fun entityListToDbModelList(entities: List<CoinInfoEntity>): List<CoinInfoDbModel> =
-        entities.map { entityToDbModel(it) }
 
     fun dbModelListToEntityList(databaseModels: List<CoinInfoDbModel>): List<CoinInfoEntity> =
         databaseModels.map { dbModelToEntity(it) }
-
-    private fun dbModelToDto(dbModel: CoinInfoDbModel): CoinInfoDto {
-        return CoinInfoDto(
-            market = dbModel.market,
-            type = dbModel.type,
-            fromSymbol = dbModel.fromSymbol,
-            toSymbol = dbModel.toSymbol,
-            price = dbModel.price,
-            lastUpdate = dbModel.lastUpdate,
-            lastTradeId = dbModel.lastTradeId,
-            highDay = dbModel.highDay,
-            lowDay = dbModel.lowDay,
-            lastMarket = dbModel.lastMarket,
-            highHour = dbModel.highHour,
-            lowHour = dbModel.lowHour,
-            imageUrl = dbModel.imageUrl
-        )
-    }
 
     private fun dtoToDbModel(dto: CoinInfoDto): CoinInfoDbModel {
         return CoinInfoDbModel(
@@ -87,6 +52,9 @@ class Mapper {
         )
     }
 
+    fun dtoListToDbModelList(topCoinsList: List<CoinInfoDto>): List<CoinInfoDbModel> =
+        topCoinsList.map { dtoToDbModel(it) }
+
     fun mapJsonContainerToListCoinInfo(jsonContainer: CoinInfoJsonContainer): List<CoinInfoDto> {
         val result = mutableListOf<CoinInfoDto>()
         val jsonObject = jsonContainer.coinNameJsonObject ?: return result
@@ -105,15 +73,20 @@ class Mapper {
         return result
     }
 
-    fun dtoListToDbModelList(topCoinsList: List<CoinInfoDto>): List<CoinInfoDbModel> =
-        topCoinsList.map { dtoToDbModel(it) }
-
-    fun dbModelListToDtoList(databaseModels: List<CoinInfoDbModel>): List<CoinInfoDto> =
-        databaseModels.map { dbModelToDto(it) }
 
     fun mapNamesListToString(topCoinNames: TopCoinNamesDto): String {
         return topCoinNames.topCoinNames?.map {
             it.coinName?.name
-        }?.joinToString ( "," ) ?: ""
+        }?.joinToString(",") ?: ""
+    }
+
+    private fun convertTimeStampToTime(timeStamp: Long?): String {
+        if (timeStamp == null) return ""
+        val stamp = Timestamp(timeStamp * 1000)
+        val date = Date(stamp.time)
+        val pattern = "HH:mm:ss"
+        val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+        sdf.timeZone = TimeZone.getDefault()
+        return sdf.format(date)
     }
 }
