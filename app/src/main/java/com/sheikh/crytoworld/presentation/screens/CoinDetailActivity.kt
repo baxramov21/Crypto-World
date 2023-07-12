@@ -1,11 +1,10 @@
-package com.sheikh.crytoworld.presentation
+package com.sheikh.crytoworld.presentation.screens
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.sheikh.crytoworld.R
 import com.sheikh.crytoworld.presentation.view_model.MainViewModel
@@ -13,7 +12,6 @@ import com.sheikh.crytoworld.presentation.view_model.MyViewModelFactory
 import kotlinx.android.synthetic.main.activity_coin_detail.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -46,8 +44,7 @@ class CoinDetailActivity : AppCompatActivity() {
                 coroutineScopeMain.launch {
                     Glide.with(this@CoinDetailActivity)
                         .load(imageUrl)
-                        .error(R.drawable.cryptos)
-                        .placeholder(R.drawable.cryptos)
+                        .placeholder(R.drawable.cryptocurrencies)
                         .into(imageViewCoinLogo)
                 }
                 textViewCryptoName.text = fromSymbol

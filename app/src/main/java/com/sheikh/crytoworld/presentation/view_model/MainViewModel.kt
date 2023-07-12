@@ -28,7 +28,7 @@ class MainViewModel(application: Application) : ViewModel() {
         return getCoinInfo.getCoinInfo(coinName)
     }
 
-    init {
+    fun startLoading() {
         coroutine.launch {
             dataLoader.loadData(QUERY_VALUE_API_KEY, 50, QUERY_VALUE_CONVERT_TO)
         }

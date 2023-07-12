@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sheikh.crytoworld">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CrytoWorld">
         <activity
-            android:name=".presentation.CoinDetailActivity"
+            android:name=".presentation.screens.CoinDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.CoinListActivity"
+            android:name=".presentation.screens.CoinListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
