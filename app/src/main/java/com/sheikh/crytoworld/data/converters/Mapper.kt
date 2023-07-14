@@ -13,7 +13,6 @@ import java.util.*
 class Mapper {
 
     fun dbModelToEntity(dbModel: CoinInfoDbModel): CoinInfoEntity {
-        val baseImageUrl = "https://cryptocompare.com"
         return CoinInfoEntity(
             market = dbModel.market,
             type = dbModel.type,
@@ -27,7 +26,7 @@ class Mapper {
             lastMarket = dbModel.lastMarket,
             highHour = dbModel.highHour,
             lowHour = dbModel.lowHour,
-            imageUrl = baseImageUrl + dbModel.imageUrl
+            imageUrl = dbModel.imageUrl
         )
     }
 
@@ -36,19 +35,19 @@ class Mapper {
 
     private fun dtoToDbModel(dto: CoinInfoDto): CoinInfoDbModel {
         return CoinInfoDbModel(
-            market = dto.market!!,
-            type = dto.type!!,
-            fromSymbol = dto.fromSymbol!!,
-            toSymbol = dto.toSymbol!!,
-            price = dto.price!!,
-            lastUpdate = dto.lastUpdate!!,
-            lastTradeId = dto.lastTradeId!!,
-            highDay = dto.highDay!!,
-            lowDay = dto.lowDay!!,
-            lastMarket = dto.lastMarket!!,
-            highHour = dto.highHour!!,
-            lowHour = dto.lowHour!!,
-            imageUrl = dto.imageUrl!!
+            market = dto.market,
+            type = dto.type,
+            fromSymbol = dto.fromSymbol,
+            toSymbol = dto.toSymbol,
+            price = dto.price,
+            lastUpdate = dto.lastUpdate,
+            lastTradeId = dto.lastTradeId,
+            highDay = dto.highDay,
+            lowDay = dto.lowDay,
+            lastMarket = dto.lastMarket,
+            highHour = dto.highHour,
+            lowHour = dto.lowHour,
+            imageUrl = BASE_IMAGE_URL + dto.imageUrl
         )
     }
 
@@ -88,5 +87,9 @@ class Mapper {
         val sdf = SimpleDateFormat(pattern, Locale.getDefault())
         sdf.timeZone = TimeZone.getDefault()
         return sdf.format(date)
+    }
+
+    companion object {
+        const val BASE_IMAGE_URL = "https://cryptocompare.com"
     }
 }
