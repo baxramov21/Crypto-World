@@ -3,23 +3,16 @@ package com.sheikh.crytoworld.presentation.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.sheikh.crytoworld.R
 import com.sheikh.crytoworld.databinding.CoinItemBinding
 import com.sheikh.crytoworld.domain.entity.CoinInfoEntity
 
 class CoinsListAdapter(private val context: Context) :
-    RecyclerView.Adapter<CoinListViewHolder>() {
+    ListAdapter<CoinInfoEntity, CoinsListViewHolder>(CoinsListDiffUtil) {
 
     var coinClickListener: CoinClickListener? = null
-
-    private val differ = AsyncListDiffer(this, CoinsListDiffCallback())
-
-    var coinsList: List<CoinInfoEntity>
-        get() = differ.currentList
-        set(value) = differ.submitList(value)
 
     interface CoinClickListener {
         fun onCoinClick(item: CoinInfoEntity)
@@ -27,17 +20,17 @@ class CoinsListAdapter(private val context: Context) :
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
-    ): CoinListViewHolder {
+    ): CoinsListViewHolder {
         val binding = CoinItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return CoinListViewHolder(binding)
+        return CoinsListViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CoinListViewHolder, position: Int) {
-        val coin: CoinInfoEntity = coinsList[position]
+    override fun onBindViewHolder(holder: CoinsListViewHolder, position: Int) {
+        val coin: CoinInfoEntity = getItem(position)
         val binding = holder.coinItemBinding
         with(binding) {
             with(coin) {
@@ -61,14 +54,12 @@ class CoinsListAdapter(private val context: Context) :
         }
     }
 
-    override fun getItemCount() = coinsList.size
-
     override fun getItemViewType(position: Int): Int {
         return ITEM_VIEW_TYPE
     }
 
     companion object {
         const val ITEM_VIEW_TYPE = 1
-        const val RECYCLER_VIEW_POOL = 15
+        const val RECYCLER_VIEW_POOL = 20
     }
 }

@@ -7,9 +7,9 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.sheikh.crytoworld.R
+import com.sheikh.crytoworld.databinding.ActivityCoinDetailBinding
 import com.sheikh.crytoworld.presentation.view_model.MainViewModel
 import com.sheikh.crytoworld.presentation.view_model.MyViewModelFactory
-import kotlinx.android.synthetic.main.activity_coin_detail.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,6 +17,9 @@ import java.util.*
 
 class CoinDetailActivity : AppCompatActivity() {
 
+    private val binding by lazy {
+        ActivityCoinDetailBinding.inflate(layoutInflater)
+    }
 
     private val myViewModelFactory by lazy {
         MyViewModelFactory(application)
@@ -30,7 +33,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_coin_detail)
+        setContentView(binding.root)
         val intentFromCoinListActivity = intent
         val coinName = intentFromCoinListActivity.getStringExtra(KEYWORD_FOR_INTENT)
         if (coinName == null) {
@@ -41,25 +44,26 @@ class CoinDetailActivity : AppCompatActivity() {
         coroutineScope.launch {
             val coinInfo = mainViewModel.getCoin(coinName)
             with(coinInfo) {
-                coroutineScopeMain.launch {
-                    Glide.with(this@CoinDetailActivity)
-                        .load(imageUrl)
-                        .placeholder(R.drawable.cryptocurrencies)
-                        .into(imageViewCoinLogo)
+                with(binding) {
+                    coroutineScopeMain.launch {
+                        Glide.with(this@CoinDetailActivity)
+                            .load(imageUrl)
+                            .placeholder(R.drawable.cryptocurrencies)
+                            .into(imageViewCoinLogo)
+                    }
+                    textViewCryptoName.text = fromSymbol
+                    textViewCurrencyName.text = toSymbol
+                    coinPrice.text = price.toString()
+                    coinHighestPrice.text = highDay.toString()
+                    coinLowestPrice.text = lowDay.toString()
+                    tvLastMarket.text = lastMarket
+                    tvLastUpdate.text =
+                        String.format(
+                            Locale.getDefault(),
+                            getString(R.string.last_update),
+                            lastUpdate
+                        )
                 }
-                textViewCryptoName.text = fromSymbol
-                textViewCurrencyName.text = toSymbol
-                coinPrice.text = price.toString()
-                coinHighestPrice.text = highDay.toString()
-                coinLowestPrice.text = lowDay.toString()
-                tvLastMarket.text = lastMarket
-                tvLastUpdate.text =
-                    String.format(
-                        Locale.getDefault(),
-                        getString(R.string.last_update),
-                        lastUpdate
-                    )
-
             }
         }
     }

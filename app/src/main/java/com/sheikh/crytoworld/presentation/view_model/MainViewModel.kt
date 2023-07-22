@@ -30,7 +30,7 @@ class MainViewModel(application: Application) : ViewModel() {
 
     fun startLoading() {
         coroutine.launch {
-            dataLoader.loadData(QUERY_VALUE_API_KEY, 50, QUERY_VALUE_CONVERT_TO)
+            dataLoader.loadData(QUERY_VALUE_API_KEY, COINS_LIMIT, QUERY_VALUE_CONVERT_TO)
         }
     }
 
@@ -38,7 +38,7 @@ class MainViewModel(application: Application) : ViewModel() {
         private const val QUERY_VALUE_API_KEY =
             "b7b7765290ee735994da05fef8406cebc8e7bf2842d4347b92f157c4ead7c877"
 
-        private const val QUERY_VALUE_LIMIT = 40
+        private const val COINS_LIMIT = 40
         private const val QUERY_VALUE_CONVERT_TO = "USD"
     }
 }

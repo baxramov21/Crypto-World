@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
+    android:layout_marginStart="4dp"
     android:layout_marginTop="2dp"
-    android:layout_marginEnd="8dp"
+    android:layout_marginEnd="4dp"
     android:layout_marginBottom="2dp"
     app:cardCornerRadius="8dp"
     app:cardUseCompatPadding="true"
-    app:strokeColor="#FEF9F9"
+    app:strokeColor="#D3D0D0"
     app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +21,7 @@
             android:id="@+id/imageViewCoinImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_margin="12dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/coin_image"
             app:layout_constraintBottom_toBottomOf="parent"
