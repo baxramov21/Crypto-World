@@ -9,9 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.sheikh.crytoworld.R
 import com.sheikh.crytoworld.databinding.ActivityCoinListBinding
-import com.sheikh.crytoworld.presentation.adapters.CoinsListAdapter
 import com.sheikh.crytoworld.domain.entity.CoinInfoEntity
+import com.sheikh.crytoworld.presentation.adapters.CoinsListAdapter
 import com.sheikh.crytoworld.presentation.view_model.MainViewModel
 import com.sheikh.crytoworld.presentation.view_model.MyViewModelFactory
 
@@ -46,6 +47,20 @@ class CoinsListActivity : AppCompatActivity() {
             ).show()
     }
 
+    private fun launchDetailActivity(coinName: String) {
+        startActivity(CoinDetailActivity.newIntent(this, coinName))
+    }
+
+    private fun launchDetailFragment(coinName: String) {
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.coin_detail_fragment_container, CoinDetailFragment.newInstance(coinName))
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun isOnePole() = binding.coinDetailFragmentContainer == null
+
     private fun showCoinsList() {
         mainViewModel.topCoins.observe(this) {
             coinsListAdapter.submitList(it)
@@ -72,12 +87,11 @@ class CoinsListActivity : AppCompatActivity() {
 
             coinsListAdapter.coinClickListener = object : CoinsListAdapter.CoinClickListener {
                 override fun onCoinClick(item: CoinInfoEntity) {
-                    val intent =
-                        CoinDetailActivity.newIntent(
-                            this@CoinsListActivity,
-                            item.fromSymbol
-                        )
-                    startActivity(intent)
+                    if (isOnePole()) {
+                        launchDetailActivity(item.fromSymbol)
+                    } else {
+                        launchDetailFragment(item.fromSymbol)
+                    }
                 }
             }
         }
