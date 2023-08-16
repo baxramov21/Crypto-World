@@ -8,5 +8,5 @@ interface Repository {
 
     suspend fun getCoinInfo(coinName: String): CoinInfoEntity
 
-    suspend fun loadData(apiKey: String, topCoinsLimit: Int, convertTo: String)
+    fun loadData(topCoinsLimit: Int, convertTo: String)
 }
