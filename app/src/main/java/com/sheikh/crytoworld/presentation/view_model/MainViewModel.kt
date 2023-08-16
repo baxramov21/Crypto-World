@@ -8,13 +8,9 @@ import com.sheikh.crytoworld.domain.entity.CoinInfoEntity
 import com.sheikh.crytoworld.domain.use_case.GetCoinInfo
 import com.sheikh.crytoworld.domain.use_case.GetCoinsList
 import com.sheikh.crytoworld.domain.use_case.LoadData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : ViewModel() {
 
-    private val coroutine = CoroutineScope(Dispatchers.IO)
 
     private val repository = RepositoryImpl(application)
 
@@ -28,17 +24,12 @@ class MainViewModel(application: Application) : ViewModel() {
         return getCoinInfo.getCoinInfo(coinName)
     }
 
-    init {
-        coroutine.launch {
-            dataLoader.loadData(QUERY_VALUE_API_KEY, 50, QUERY_VALUE_CONVERT_TO)
-        }
+    fun startLoading() {
+        dataLoader.loadData(COINS_LIMIT, QUERY_VALUE_CONVERT_TO)
     }
 
     companion object {
-        private const val QUERY_VALUE_API_KEY =
-            "b7b7765290ee735994da05fef8406cebc8e7bf2842d4347b92f157c4ead7c877"
-
-        private const val QUERY_VALUE_LIMIT = 40
+        private const val COINS_LIMIT = 40
         private const val QUERY_VALUE_CONVERT_TO = "USD"
     }
 }

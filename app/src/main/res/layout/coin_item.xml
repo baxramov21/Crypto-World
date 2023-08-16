@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
+    android:layout_marginStart="4dp"
     android:layout_marginTop="2dp"
-    android:layout_marginEnd="8dp"
+    android:layout_marginEnd="4dp"
     android:layout_marginBottom="2dp"
     app:cardCornerRadius="8dp"
     app:cardUseCompatPadding="true"
-    app:strokeColor="#FEF9F9"
+    app:strokeColor="#D3D0D0"
     app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,11 +19,13 @@
 
         <ImageView
             android:id="@+id/imageViewCoinImage"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_margin="16dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="12dp"
+            android:adjustViewBounds="true"
             android:contentDescription="@string/coin_image"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/btn_star_big_on" />
@@ -44,7 +46,7 @@
 
         <TextView
             android:id="@+id/textViewCoinPrice"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:gravity="center"
@@ -57,17 +59,24 @@
             tools:text="23 454" />
 
         <TextView
-            android:id="@+id/textViewLastUpdateTime"
+            android:id="@+id/textViewCoinPriceLastUpdateTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="24dp"
-            android:textSize="16sp"
             android:textColor="@color/last_update_time_color"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewCoinPrice"
             tools:text="Last update was in 11:24" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
